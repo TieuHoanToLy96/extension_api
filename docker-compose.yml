@@ -1,0 +1,20 @@
+version: "2"
+services:
+  extension_api:
+    container_name: extension_api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: .dev.env
+    command: iex -S mix phx.server
+    ports:
+      - "4321:4000"
+    volumes:
+      - .:/app:cached
+    networks:
+      - extension_api_bridge
+
+networks:
+  extension_api_bridge:
+    external:
+      name: extension_api_network

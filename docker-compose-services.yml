@@ -1,0 +1,23 @@
+version: "2"
+services:
+  extension_api_db:
+    image: postgres:15-alpine
+    container_name: extension_api_db
+    ports:
+      - "6789:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: extension_api_dev
+      PGDATA: /data/extension_api
+    logging:
+      driver: none
+    volumes:
+      - ./data:/data:cached
+    networks:
+      - extension_api_bridge
+
+networks:
+  extension_api_bridge:
+    external:
+      name: extension_api_network
